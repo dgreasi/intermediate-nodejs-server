@@ -1,6 +1,6 @@
-var express = require('express');
-var request = require('request');
-var app = express();
+const express = require('express');
+const request = require('request');
+const app = express();
 
 
 app.use(function(req, res, next) {
@@ -32,7 +32,7 @@ app.get('/*', function (req, res) {
 
 });
 
-var options = {
+const options = {
   url: 'http://api.github.com/orgs/greasidis/members',
   headers: {
     'User-Agent': 'request'
@@ -44,8 +44,8 @@ function makeHTTP(inputReq) {
 	return new Promise((resolve, reject) => {
 		request({url: inputReq, headers: {'User-Agent': 'request'}}, function (error, response, body) {
 		  if (!error && response.statusCode == 200) {
-		    // var result = JSON.stringify(body);
-		    var result = body;
+		    // const result = JSON.stringify(body);
+		    const result = body;
 		  	// console.log("Response.statusCode: " + response.statusCode);
 		    resolve(result);
 		  } else {
@@ -62,7 +62,7 @@ function makeHTTPstatic() {
 	return new Promise((resolve, reject) => {
 		request(options, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
-			  	var result = JSON.stringify(body);
+			  	const result = JSON.stringify(body);
 			  	// console.log('Got the result');
 			  	resolve(result);
 			} else {
@@ -78,17 +78,15 @@ function makeHTTPstatic() {
 
 function callback(error, response, body) {
   if (!error && response.statusCode == 200) {
-  	var result = JSON.stringify(body);
-  	console.log('Got the result');
+    const result = JSON.stringify(body);
+    console.log('Got the result');
 
     return result;
   }
 }
-	
-//start a server on port 80 and log its start to our console
-var server = app.listen(80, function () {
 
-  var port = server.address().port;
+// start a server on port 80 and log its start to our console
+const server = app.listen(80, function () {
+  const port = server.address().port;
   console.log('Listening on port ', port);
-
 });
