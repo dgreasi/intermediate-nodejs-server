@@ -4,7 +4,8 @@
   "description": "A simple Expressjs Web server for CORS requests on resin.io",
   "main": "dist/server.js",
   "scripts": {
-    "start": "tsc && node dist/server.js"
+    "start": "tsc && node dist/server.js",
+    "deploy:balena": "balena push {username}/{fleet_name}"
   },
   "repository": {
     "type": "git",
