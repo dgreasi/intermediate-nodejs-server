@@ -1,28 +1,21 @@
 {
   "name": "intermediate-nodejs-server",
   "version": "1.0.0",
+  "homepage": "https://github.com/Temeteron/intermediate-nodejs-server/",
   "description": "A simple Expressjs Web server for CORS requests on resin.io",
   "main": "dist/server.js",
   "scripts": {
-    "start": "tsc && node dist/server.js",
+    "start": "npx tsc && node dist/server.js",
     "deploy:balena": "balena push {username}/{fleet_name}"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/resin-io-projects/simple-server-node.git"
-  },
   "keywords": [
-    "resin.io",
+    "balena.io",
     "webserver",
     "nodejs",
-    "expressjs"
+    "expressjs",
+    "soap"
   ],
-  "author": "Shaun Mulligan <shaun@resin.io>",
   "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/resin-io-projects/simple-server-node/issues"
-  },
-  "homepage": "https://github.com/resin-io-projects/simple-server-node#readme",
   "dependencies": {
     "easy-soap-request": "^4.4.0",
     "express": "^4.17.1",
