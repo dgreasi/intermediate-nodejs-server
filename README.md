@@ -27,18 +27,18 @@ Thus, after the deployment your client can take the needed data with the followi
 1) Clone project
 
 ```bash
-$ git clone https://github.com/Temeteron/raspberry_resin_server_node.git
+$ git clone https://github.com/Temeteron/intermediate-nodejs-server.git
 ```
 
-2) Customize server, execute with:
+2) Customize server, start with:
 
 ```bash
-$ node server.js
+$ npm run start
 ```
 
 3) Deploy
 
-You can deploy your server to appengine or any other site you prefer. You can also deploy your server to a Raspberry Pi, if you have one. This can be done easily if you use [resinos](http://resin.io).
+You can deploy your server to GCP or any other site you prefer. You can also deploy your server to a Raspberry Pi, if you have one. This can be done easily if you use [Balena](https://balena.io).
 
-You can find a full tutorial about resinos [here](https://docs.resin.io/raspberrypi3/nodejs/getting-started/).
+You can find a full tutorial about balena [here](https://www.balena.io/docs/learn/getting-started/raspberrypi3/nodejs/).
 
