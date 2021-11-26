@@ -6,7 +6,7 @@ import { getAfmBodyRequestFactory, soapRequestAsync } from '../services/soap.ser
  * @param username
  * @param password
  * @param afmCalledFor
- * @param asOnDate∏
+ * @param asOnDate
  */
 async function getAfmInfo(
   username: string,
