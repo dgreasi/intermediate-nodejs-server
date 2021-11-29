@@ -1,10 +1,15 @@
+import dotenv from 'dotenv'
 import express from 'express';
 import { request } from 'request';
 import { getAfmInfo } from './src/controllers/soap.controller';
 import { IGetAfmDTO } from './src/interfaces/dto/gsis.dto';
 
+// Parse environment variables
+dotenv.config()
+
+// INIT SERVER
 const app = express();
-const port = 80;
+const port = process.env.PORT || 80;
 
 /**
  * Use headers
@@ -19,7 +24,7 @@ app.use(function (req, res, next) {
  * Home page, nothing to show
  */
 app.get('/', function (req, res) {
-  res.send('Greasidis Raspberry Pi 3! \n\n You requested nothing! PAOK');
+  res.send(`Greasidis Softhouse. ${process.env.DEVICE} device. \n\n You requested nothing!`);
 });
 
 /**
