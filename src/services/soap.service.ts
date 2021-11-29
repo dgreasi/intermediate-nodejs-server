@@ -12,10 +12,14 @@ const parser = new XMLParser();
  * @param xml
  * @private
  */
-async function soapRequestAsync(method = 'POST', url: string, headers: ISoapHeaders, xml: string): Promise<IGenericResponse> {
-
+async function soapRequestAsync(
+  method = 'POST',
+  url: string,
+  headers: ISoapHeaders,
+  xml: string,
+): Promise<IGenericResponse> {
   try {
-    const { response } = await soapRequest({method, url, headers, xml}); // Optional timeout parameter(milliseconds)
+    const { response } = await soapRequest({ method, url, headers, xml }); // Optional timeout parameter(milliseconds)
     const { headers: headersResp, body, statusCode } = response;
     const bodyJSON = parser.parse(body);
 
@@ -26,12 +30,14 @@ async function soapRequestAsync(method = 'POST', url: string, headers: ISoapHead
     console.debug('--------------- STATUS CODE ----------------');
     console.debug(statusCode);
     console.debug('-------------- END ----------------');
+
     return {
       success: true,
       data: bodyJSON,
     };
   } catch (error) {
     const errorJSON = parser.parse(error);
+
     console.debug('-------------- ERROR START ----------------');
     console.debug(errorJSON);
     console.debug('-------------- ERROR END ----------------');
