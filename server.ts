@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
+import bodyParser from 'body-parser';
 import { engine } from 'express-handlebars';
 import { mainRouter } from './src/routes/main.router';
 import { soapRouter } from './src/routes/soap.router';
@@ -11,6 +12,10 @@ dotenv.config();
 // INIT SERVER
 const app = express();
 const port = process.env.PORT || 80;
+
+// Parse application/x-www-form-urlencoded for POST requests
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // serve your static as static
 app.use(express.static(__dirname + '/src/views'));

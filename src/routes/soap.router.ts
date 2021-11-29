@@ -1,11 +1,7 @@
 import { IGetAfmDTO } from '../interfaces/dto/gsis.dto';
 import { getAfmInfo, makeSoapRequest } from '../controllers/soap.controller';
 import express from 'express';
-import bodyParser from 'body-parser';
 const soapRouter = express.Router();
-
-// parse application/x-www-form-urlencoded
-soapRouter.use(bodyParser.urlencoded({ extended: true }));
 
 /**
  * Use headers
@@ -21,20 +17,20 @@ soapRouter.use(function (req, res, next) {
  */
 soapRouter.post('/', async function (req, res) {
   console.debug('============= POST /soap STARTED ============= ');
-  console.debug('----------------------- ARGS -----------------------');
-  console.debug('req.body: ', req.body);
+  console.debug('----------------------- BODY -----------------------');
+  console.debug('req.body: ', req?.body);
   console.debug('----------------------------------------------------');
 
   const { method, url, headers, xml } = req.body;
 
-  if (method && url && headers && xml) {
-    const response = await makeSoapRequest(method, url, headers, xml);
+  if (method && url && xml) {
+    const response = await makeSoapRequest(method, url, headers || {}, xml);
     res.status(200).send(response);
     console.debug('============= POST /soap ENDED ============= ');
     return
   }
 
-  res.status(400).send('Currently unavailable');
+  res.status(500).send('Missing body arguments');
   console.debug('============= POST /soap ENDED WITH ERROR ============= ');
 });
 
@@ -59,7 +55,7 @@ soapRouter.get('/afm', async function (req, res) {
     return;
   }
 
-  res.status(400).send('MISSING ARGUMENTS!!!');
+  res.status(400).send('Missing arguments');
   console.debug('============= GET /soap/afm ENDED WITH ERROR =============');
 });
 
