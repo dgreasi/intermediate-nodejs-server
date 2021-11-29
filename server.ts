@@ -1,15 +1,40 @@
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 import express from 'express';
 import { request } from 'request';
+import bodyParser from 'body-parser';
+import { engine } from 'express-handlebars';
 import { getAfmInfo } from './src/controllers/soap.controller';
 import { IGetAfmDTO } from './src/interfaces/dto/gsis.dto';
 
 // Parse environment variables
-dotenv.config()
+dotenv.config();
 
 // INIT SERVER
 const app = express();
 const port = process.env.PORT || 80;
+
+// serve your static as static
+app.use(express.static(__dirname + '/src/views'));
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }))
+
+// Init handlebars configuration
+app.engine('handlebars', engine({
+  defaultLayout: 'main',
+  extname: '.handlebars',
+  helpers: {
+    getShortComment(comment) {
+      if (comment.length < 64) {
+        return comment;
+      }
+
+      return comment.substring(0, 64) + '...';
+    }
+  }
+}));
+app.set('view engine', 'handlebars');
+app.set('views', __dirname + '/src/views');
 
 /**
  * Use headers
@@ -24,7 +49,15 @@ app.use(function (req, res, next) {
  * Home page, nothing to show
  */
 app.get('/', function (req, res) {
-  res.send(`Greasidis Softhouse. ${process.env.DEVICE} device. \n\n You requested nothing!`);
+  res.render('home', { device: process.env.DEVICE });
+});
+
+/**
+ * Make SOAP request and respond with result
+ */
+app.post('/soap', async function (req, res) {
+  console.log('req.body: ', req.body);
+  res.status(400).send('Currently unavailable');
 });
 
 /**
@@ -43,6 +76,13 @@ app.get('/soap/afm', async function (req, res) {
   }
 
   res.status(400).send('MISSING ARGUMENTS!!!');
+});
+
+/**
+ * 404 test page
+ */
+app.get('/404', function (req, res) {
+  res.render('pages/404', { device: process.env.DEVICE });
 });
 
 /**

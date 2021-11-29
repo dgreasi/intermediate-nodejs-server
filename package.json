@@ -5,7 +5,11 @@
   "description": "A simple Expressjs Web server for CORS requests on resin.io",
   "main": "dist/server.js",
   "scripts": {
-    "start": "npx tsc && node dist/server.js",
+    "clean:build": "rm -rf dist",
+    "cp:static": "cp -R src/views ./dist/src/views",
+    "prestart": "npm run clean:build && npx tsc && npm run cp:static",
+    "clean:start": "rm -rf node_modules && npm i && npm start",
+    "start": "node dist/server.js",
     "deploy:balena": "balena push {username}/{fleet_name}"
   },
   "keywords": [
@@ -17,9 +21,11 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "dotenv": "^10.0.0",
     "easy-soap-request": "^4.4.0",
     "express": "^4.17.1",
+    "express-handlebars": "^6.0.2",
     "fast-xml-parser": "^4.0.0-beta.2",
     "request": "^2.81.0"
   },
