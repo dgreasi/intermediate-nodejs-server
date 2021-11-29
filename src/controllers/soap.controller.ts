@@ -1,5 +1,24 @@
 import { IGenericResponse } from '../interfaces/shared';
 import { getAfmBodyRequestFactory, soapRequestAsync } from '../services/soap.service';
+import { ISoapHeaders } from '../interfaces/gsis';
+
+/**
+ * SOAP to HTTP
+ * @param method
+ * @param url
+ * @param headers
+ * @param xml
+ */
+async function makeSoapRequest(
+  method: string,
+  url: string,
+  headers: ISoapHeaders,
+  xml: string,
+): Promise<IGenericResponse> {
+  const soapResponse = await soapRequestAsync(method, url, headers, xml);
+  if (soapResponse.success) return { success: true, data: soapResponse.data };
+  return { success: false, error: soapResponse.error };
+}
 
 /**
  * Get information for specified afm
@@ -15,11 +34,7 @@ async function getAfmInfo(
   asOnDate?: string,
 ): Promise<IGenericResponse> {
   const { method, url, headers, xml } = getAfmBodyRequestFactory(username, password, afmCalledFor, asOnDate);
-  const soapResponse = await soapRequestAsync(method, url, headers, xml);
-
-  if (soapResponse.success) return { success: true, data: soapResponse.data };
-
-  return { success: false, error: soapResponse.error };
+  return await makeSoapRequest(method, url, headers, xml);
 }
 
-export { getAfmInfo };
+export { makeSoapRequest, getAfmInfo };

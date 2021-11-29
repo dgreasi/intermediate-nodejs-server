@@ -1,5 +1,5 @@
 import { IGetAfmDTO } from '../interfaces/dto/gsis.dto';
-import { getAfmInfo } from '../controllers/soap.controller';
+import { getAfmInfo, makeSoapRequest } from '../controllers/soap.controller';
 import express from 'express';
 import bodyParser from 'body-parser';
 const soapRouter = express.Router();
@@ -24,8 +24,18 @@ soapRouter.post('/', async function (req, res) {
   console.debug('----------------------- ARGS -----------------------');
   console.debug('req.body: ', req.body);
   console.debug('----------------------------------------------------');
+
+  const { method, url, headers, xml } = req.body;
+
+  if (method && url && headers && xml) {
+    const response = await makeSoapRequest(method, url, headers, xml);
+    res.status(200).send(response);
+    console.debug('============= POST /soap ENDED ============= ');
+    return
+  }
+
   res.status(400).send('Currently unavailable');
-  console.debug('============= POST /soap ENDED ============= ');
+  console.debug('============= POST /soap ENDED WITH ERROR ============= ');
 });
 
 /**
