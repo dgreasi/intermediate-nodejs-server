@@ -19,6 +19,10 @@
     "expressjs",
     "soap"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Temeteron/intermediate-nodejs-server.git"
+  },
   "license": "Apache-2.0",
   "dependencies": {
     "body-parser": "^1.19.0",

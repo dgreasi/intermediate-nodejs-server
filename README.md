@@ -33,6 +33,7 @@ $ git clone https://github.com/Temeteron/intermediate-nodejs-server.git
 2) Customize server, start with:
 
 ```bash
+nvm use 12
 $ npm run start
 ```
 
