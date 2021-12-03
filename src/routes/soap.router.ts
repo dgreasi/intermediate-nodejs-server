@@ -44,6 +44,10 @@ soapRouter.get('/afm', async function (req, res) {
   // @ts-ignore
   const { username, password, afmCalledFor } = req.query as IGetAfmDTO;
 
+  console.debug('------------------ REQUEST HEADERS -----------------');
+  console.debug('req.headers: ', req.headers)
+  console.debug('----------------------------------------------------');
+
   console.debug('----------------------- ARGS -----------------------');
   console.debug('query: ', req.query);
   console.debug('----------------------------------------------------');

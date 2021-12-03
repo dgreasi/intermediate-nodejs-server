@@ -23,13 +23,13 @@ async function soapRequestAsync(
     const { headers: headersResp, body, statusCode } = response;
     const bodyJSON = parser.parse(body);
 
-    console.debug('--------------- HEADERS ----------------');
+    console.debug('--------------- SOAP HEADERS ----------------');
     console.debug(headersResp);
-    console.debug('-------------- BODY -----------------');
+    console.debug('-------------- SOAP BODY -----------------');
     console.debug(bodyJSON);
-    console.debug('--------------- STATUS CODE ----------------');
+    console.debug('--------------- SOAP STATUS CODE ----------------');
     console.debug(statusCode);
-    console.debug('-------------- END ----------------');
+    console.debug('-------------- SOAP END ----------------');
 
     return {
       success: true,
