@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import bodyParser from 'body-parser';
 import { engine } from 'express-handlebars';
+import cors from 'cors';
 import { mainRouter } from './src/routes/main.router';
 import { soapRouter } from './src/routes/soap.router';
 import { corsRouter } from './src/routes/cors.router';
@@ -11,6 +12,7 @@ dotenv.config();
 
 // INIT SERVER
 const app = express();
+app.use(cors());
 const port = process.env.PORT || 80;
 
 // Parse application/x-www-form-urlencoded for POST requests
