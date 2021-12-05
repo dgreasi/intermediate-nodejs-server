@@ -15,8 +15,15 @@ async function makeSoapRequest(
   headers: ISoapHeaders,
   xml: string,
 ): Promise<IGenericResponse> {
+  console.debug('Soap.controller makeSoapRequest started');
+
   const soapResponse = await soapRequestAsync(method, url, headers, xml);
-  if (soapResponse.success) return { success: true, data: soapResponse.data };
+  if (soapResponse.success) {
+    console.debug('Soap.controller makeSoapRequest finished');
+    return { success: true, data: soapResponse.data };
+  }
+
+  console.debug('Soap.controller makeSoapRequest finished with error');
   return { success: false, error: soapResponse.error };
 }
 
@@ -33,6 +40,7 @@ async function getAfmInfo(
   afmCalledFor: string,
   asOnDate?: string,
 ): Promise<IGenericResponse> {
+  console.debug('Soap.controller getAfmInfo started - will finish on return');
   const { method, url, headers, xml } = getAfmBodyRequestFactory(username, password, afmCalledFor, asOnDate);
   return await makeSoapRequest(method, url, headers, xml);
 }

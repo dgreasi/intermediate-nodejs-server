@@ -16,7 +16,7 @@ soapRouter.use(function (req, res, next) {
  * Make SOAP request and respond with result
  */
 soapRouter.post('/', async function (req, res) {
-  console.debug('============= POST /soap STARTED ============= ');
+  console.debug('============= POST /soap STARTED =============');
   console.debug('----------------------- BODY -----------------------');
   console.debug('req.body: ', req?.body);
   console.debug('----------------------------------------------------');
@@ -26,12 +26,12 @@ soapRouter.post('/', async function (req, res) {
   if (method && url && xml) {
     const response = await makeSoapRequest(method, url, headers || {}, xml);
     res.status(200).send(response);
-    console.debug('============= POST /soap ENDED ============= ');
+    console.debug('============= POST /soap ENDED =============');
     return
   }
 
   res.status(500).send('Missing body arguments');
-  console.debug('============= POST /soap ENDED WITH ERROR ============= ');
+  console.debug('============= POST /soap ENDED WITH ERROR =============');
 });
 
 /**

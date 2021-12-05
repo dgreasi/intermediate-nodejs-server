@@ -18,6 +18,8 @@ async function soapRequestAsync(
   headers: ISoapHeaders,
   xml: string,
 ): Promise<IGenericResponse> {
+  console.debug('Soap.service soapRequestAsync started');
+
   try {
     const { response } = await soapRequest({ method, url, headers, xml }); // Optional timeout parameter(milliseconds)
     const { headers: headersResp, body, statusCode } = response;
@@ -26,11 +28,12 @@ async function soapRequestAsync(
     console.debug('--------------- SOAP HEADERS ----------------');
     console.debug(headersResp);
     console.debug('-------------- SOAP BODY -----------------');
-    console.debug(bodyJSON);
+    console.debug(body);
     console.debug('--------------- SOAP STATUS CODE ----------------');
     console.debug(statusCode);
     console.debug('-------------- SOAP END ----------------');
 
+    console.debug('Soap.service soapRequestAsync finished');
     return {
       success: true,
       data: bodyJSON,
@@ -39,9 +42,10 @@ async function soapRequestAsync(
     const errorJSON = parser.parse(error);
 
     console.debug('-------------- ERROR START ----------------');
-    console.debug(errorJSON);
+    console.debug(error);
     console.debug('-------------- ERROR END ----------------');
 
+    console.debug('Soap.service soapRequestAsync finished with error');
     return {
       success: false,
       error: errorJSON,
@@ -62,6 +66,8 @@ function getAfmBodyRequestFactory(
   afmCalledFor: string,
   asOnDate?: string,
 ): IAfmSoapBody {
+  console.debug('Soap.service getAfmBodyRequestFactory started - finished');
+
   return {
     method: 'POST',
     url: 'https://www1.gsis.gr/wsaade/RgWsPublic2/RgWsPublic2',
