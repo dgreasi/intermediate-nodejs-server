@@ -2,14 +2,14 @@
   "name": "intermediate-nodejs-server",
   "version": "1.0.0",
   "homepage": "https://github.com/Temeteron/intermediate-nodejs-server/",
-  "description": "A simple Expressjs Web server for CORS requests on resin.io",
+  "description": "A simple Expressjs Web server for CORS requests on balena.io",
   "main": "dist/server.js",
   "scripts": {
-    "clean:build": "rm -rf dist",
-    "cp:static": "cp -R src/views ./dist/src/views",
-    "prestart": "npm run clean:build && npx tsc && npm run cp:static",
-    "clean:start": "rm -rf node_modules && npm i && npm start",
     "start": "node dist/server.js",
+    "clean:start": "rm -rf node_modules && npm i && npm start",
+    "cp:static": "cp -R src/views ./dist/src/views",
+    "clean:build": "rm -rf dist",
+    "build": "npm run clean:build && npx tsc && npm run cp:static",
     "deploy:balena": "balena push {username}/{fleet_name} --nocache"
   },
   "keywords": [
