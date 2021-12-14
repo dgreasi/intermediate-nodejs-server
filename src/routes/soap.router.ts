@@ -42,7 +42,7 @@ soapRouter.get('/afm', async function (req, res) {
   console.debug('============= GET /soap/afm STARTED =============');
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const { username, password, afmCalledFor } = req.query as IGetAfmDTO;
+  const { afmCalledFor } = req.query as IGetAfmDTO;
 
   console.debug('------------------ REQUEST HEADERS -----------------');
   console.debug('req.headers: ', req.headers)
@@ -52,8 +52,8 @@ soapRouter.get('/afm', async function (req, res) {
   console.debug('query: ', req.query);
   console.debug('----------------------------------------------------');
 
-  if (username?.length && password?.length && afmCalledFor.length) {
-    const response = await getAfmInfo(username, password, afmCalledFor);
+  if (afmCalledFor.length) {
+    const response = await getAfmInfo(afmCalledFor);
     res.send(response);
     console.debug('============= GET /soap/afm ENDED =============');
     return;

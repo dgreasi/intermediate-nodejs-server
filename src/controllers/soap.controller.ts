@@ -29,19 +29,15 @@ async function makeSoapRequest(
 
 /**
  * Get information for specified afm
- * @param username
- * @param password
  * @param afmCalledFor
  * @param asOnDate
  */
 async function getAfmInfo(
-  username: string,
-  password: string,
   afmCalledFor: string,
   asOnDate?: string,
 ): Promise<IGenericResponse> {
   console.debug('Soap.controller getAfmInfo started - will finish on return');
-  const { method, url, headers, xml } = getAfmBodyRequestFactory(username, password, afmCalledFor, asOnDate);
+  const { method, url, headers, xml } = getAfmBodyRequestFactory(process.env.USERNAME, process.env.PASSWORD, afmCalledFor, asOnDate);
   return await makeSoapRequest(method, url, headers, xml);
 }
 
