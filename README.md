@@ -33,7 +33,7 @@ $ git clone https://github.com/Temeteron/intermediate-nodejs-server.git
 2) Customize server, start with:
 
 ```bash
-nvm use 12
+$ nvm use 12
 $ npm run start
 ```
 
@@ -43,3 +43,12 @@ You can deploy your server to GCP or any other site you prefer. You can also dep
 
 You can find a full tutorial about balena [here](https://www.balena.io/docs/learn/getting-started/raspberrypi3/nodejs/).
 
+In case the build fails when deploying with balena push you can build locally with and then deploy:
+```shell
+$ npm run build
+$ balena push {username}/{fleet_name} # Replace username and fleet_name name with yours
+```
+Before that you must comment out the below line from your docker template:
+```shell
+$ RUN npm run build
+```
