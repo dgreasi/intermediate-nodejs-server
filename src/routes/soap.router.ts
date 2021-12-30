@@ -2,6 +2,7 @@ import { IGetAfmDTO } from '../interfaces/dto/gsis.dto';
 import { getAfmInfo, makeSoapRequest } from '../controllers/soap.controller';
 import express from 'express';
 const soapRouter = express.Router();
+import jwt_decode from 'jwt-decode';
 
 /**
  * Use headers
@@ -27,7 +28,7 @@ soapRouter.post('/', async function (req, res) {
     const response = await makeSoapRequest(method, url, headers || {}, xml);
     res.status(200).send(response);
     console.debug('============= POST /soap ENDED =============');
-    return
+    return;
   }
 
   res.status(500).send('Missing body arguments');
@@ -45,9 +46,11 @@ soapRouter.get('/afm', async function (req, res) {
   const { afmCalledFor } = req.query as IGetAfmDTO;
 
   console.debug('------------------ REQUEST HEADERS -----------------');
-  console.debug('req.headers: ', req.headers)
-  console.debug('----------------------------------------------------');
-
+  if (req.headers.authorization?.length) {
+    const jwt = jwt_decode(req.headers.authorization.split(' ')[1]);
+    console.debug(jwt);
+  }
+  console.debug(req.headers);
   console.debug('----------------------- ARGS -----------------------');
   console.debug('query: ', req.query);
   console.debug('----------------------------------------------------');

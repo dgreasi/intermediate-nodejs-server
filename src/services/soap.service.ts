@@ -25,10 +25,10 @@ async function soapRequestAsync(
     const { headers: headersResp, body, statusCode } = response;
     const bodyJSON = parser.parse(body);
 
-    console.debug('--------------- SOAP HEADERS ----------------');
-    console.debug(headersResp);
+    // console.debug('--------------- SOAP HEADERS ----------------');
+    // console.debug(headersResp);
     console.debug('-------------- SOAP BODY -----------------');
-    console.debug(body);
+    console.debug(bodyJSON['env:Envelope']['env:Body']['srvc:rgWsPublic2AfmMethodResponse']['srvc:result']);
     console.debug('--------------- SOAP STATUS CODE ----------------');
     console.debug(statusCode);
     console.debug('-------------- SOAP END ----------------');
