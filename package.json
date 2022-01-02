@@ -9,8 +9,8 @@
     "clean:start": "rm -rf node_modules && npm i && npm start",
     "cp:static": "cp -R src/views ./dist/src/views",
     "clean:build": "rm -rf dist",
-    "build": "npm run clean:build && npx tsc && npm run cp:static",
-    "deploy:balena": "balena push {username}/{fleet_name} --nocache"
+    "build": "npm run clean:build && tsc && npm run cp:static",
+    "deploy:balena": "balena push {username}/{fleet_name} -m"
   },
   "keywords": [
     "balena.io",
