@@ -5,12 +5,16 @@
   "description": "A simple Expressjs Web server for CORS requests on balena.io",
   "main": "dist/server.js",
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "node server.js",
+    "start:dev": "node dist/server.js",
     "clean:start": "rm -rf node_modules && npm i && npm start",
     "cp:static": "cp -R src/views ./dist/src/views",
     "clean:build": "rm -rf dist",
     "build": "npm run clean:build && tsc && npm run cp:static",
-    "deploy:balena": "balena push {username}/{fleet_name} -m"
+    "copy-deploy-config": "cp ./opt_to_deploy/balena.yaml ./dist/balena.yaml && cp ./opt_to_deploy/docker-compose.yaml ./dist/docker-compose.yaml && cp ./opt_to_deploy/Dockerfile.template ./dist/Dockerfile.template && cp ./opt_to_deploy/repo.yaml ./dist/repo.yml",
+    "copy-data": "cp ./package.json ./dist/package.json && cp ./package-lock.json ./dist/package-lock.json",
+    "predeploy": "npm run build && npm run copy-deploy-config && npm run copy-data",
+    "deploy": "dotenv -e .env -- bash -c 'cd dist && balena push $PROJECT_NAME -m'"
   },
   "keywords": [
     "balena.io",
@@ -39,6 +43,7 @@
     "@types/express": "^4.17.13",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
+    "dotenv-cli": "^8.0.0",
     "eslint": "^8.3.0",
     "prettier": "^2.5.0",
     "tslint": "^6.1.3",

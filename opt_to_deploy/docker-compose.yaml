@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  intermediate-server:
+    build: .
+    ports:
+      - '80:80'
+    environment:
+      - PORT=80
+      - APP_URL=http://localhost:3000
+      - NODE_ENV=staging
+      - RUN_TESTS=false
+      - LOG_LEVEL=debug

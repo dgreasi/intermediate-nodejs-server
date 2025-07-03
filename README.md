@@ -1,4 +1,5 @@
 # intermediate_nodejs_server
+
 An intermediate nodejs server to make CORS requests.
 
 This is a simple Express server project that gets requests (json files from other servers that need specific headers) from external clients and returns the result.
@@ -8,6 +9,7 @@ It is usually referred as intermediate server.
 A use case scenario is that you have created an only client web app and you need to make requests to outside servers that need some headers. Because you have only a client side you can't do those requests by yourself. Thus, you need an intermediate server.
 
 ### Example
+
 You need to get the basic details of a package that is published to npm. You can get this by the following link.
 
 [http://registry.npmjs.org/localforage/latest](http://registry.npmjs.org/localforage/latest)
@@ -24,31 +26,41 @@ Thus, after the deployment your client can take the needed data with the followi
 
 ### Get started
 
-1) Clone project
+1. Clone project
 
 ```bash
 $ git clone https://github.com/Temeteron/intermediate-nodejs-server.git
 ```
 
-2) Customize server, start with:
+2. Customize server, start with:
 
 ```bash
 $ nvm use 12
 $ npm run start
 ```
 
-3) Deploy
+3. Deploy
 
 You can deploy your server to GCP or any other site you prefer. You can also deploy your server to a Raspberry Pi, if you have one. This can be done easily if you use [Balena](https://balena.io).
 
 You can find a full tutorial about balena [here](https://www.balena.io/docs/learn/getting-started/raspberrypi3/nodejs/).
 
 In case the build fails when deploying with balena push you can build locally with and then deploy:
+
 ```shell
 $ npm run build
 $ balena push {username}/{fleet_name} # Replace username and fleet_name name with yours
 ```
+
 Before that you must comment out the below line from your docker template:
+
 ```shell
 $ RUN npm run build
+```
+
+Create an `.env` file in the root directory of the project with the following content:
+
+```env
+# your balena project name
+PROJECT_NAME=${profile_name/project_name}
 ```
