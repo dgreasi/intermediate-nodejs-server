@@ -1,10 +1,13 @@
 # intermediate_nodejs_server
 
-An intermediate nodejs server to make CORS requests.
+An intermediate Node.js server to make CORS requests with Tailscale networking.
 
-This is a simple Express server project that gets requests (json files from other servers that need specific headers) from external clients and returns the result.
+This repository contains two main components:
 
-It is usually referred as intermediate server.
+1. **Intermediate Server**: A simple Express server project that gets requests (json files from other servers that need specific headers) from external clients and returns the result.
+2. **Tailscale Service**: A Tailscale client that creates a secure network connection when deployed to Balena, allowing remote access to your server.
+
+The Express server is usually referred to as an intermediate server.
 
 A use case scenario is that you have created an only client web app and you need to make requests to outside servers that need some headers. Because you have only a client side you can't do those requests by yourself. Thus, you need an intermediate server.
 
@@ -41,26 +44,46 @@ $ npm run start
 
 3. Deploy
 
-You can deploy your server to GCP or any other site you prefer. You can also deploy your server to a Raspberry Pi, if you have one. This can be done easily if you use [Balena](https://balena.io).
-
-You can find a full tutorial about balena [here](https://www.balena.io/docs/learn/getting-started/raspberrypi3/nodejs/).
-
-In case the build fails when deploying with balena push you can build locally with and then deploy:
-
-```shell
-$ npm run build
-$ balena push {username}/{fleet_name} # Replace username and fleet_name name with yours
-```
-
-Before that you must comment out the below line from your docker template:
-
-```shell
-$ RUN npm run build
-```
-
 Create an `.env` file in the root directory of the project with the following content:
 
 ```env
 # your balena project name
 PROJECT_NAME=${profile_name/project_name}
+```
+
+You can deploy your server to GCP or any other site you prefer. You can also deploy your server to a Raspberry Pi, if you have one. This can be done easily if you use [Balena](https://balena.io).
+You can find a full tutorial about balena [here](https://www.balena.io/docs/learn/getting-started/raspberrypi3/nodejs/).
+
+### Balena Deployment with Tailscale
+
+When deploying to Balena, this project includes a Tailscale service that allows secure remote access to your intermediate server. The deployment includes:
+
+- **Node.js Express Server**: The main intermediate server for handling CORS requests
+- **Tailscale Client**: Provides secure networking and remote access capabilities
+
+#### Required Environment Variables for Balena
+
+Set these variables in your Balena dashboard:
+
+```env
+# Tailscale authentication key (get from https://login.tailscale.com/admin/settings/keys)
+TS_AUTHKEY=tskey-auth-xxxxxxxxxxxxxxxx
+
+# Optional: Custom hostname for your device
+TS_HOSTNAME=my-intermediate-server
+
+# Scan for subnet routes (192.168.1.0/24)
+TS_ROUTES=192.168.1.0/24
+
+# To accept routes from other devices (usually not needed)
+TS_ACCEPT_ROUTES=true
+```
+
+After deployment, your intermediate server will be accessible via:
+
+- Local network (if connected to same WiFi)
+- Tailscale network (from any device connected to your Tailscale account)
+
+```shell
+$ npm run deploy
 ```

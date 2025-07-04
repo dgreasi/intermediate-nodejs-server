@@ -1,8 +1,27 @@
-version: '2'
+version: '2.1'
+
+volumes:
+  tailscale-state:
 
 services:
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: tailscale
+    network_mode: 'host'
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - tailscale-state:/var/lib/tailscale
+    environment:
+      - TS_AUTHKEY # Set in Balena variables
+      - TS_ROUTES # Set in Balena variables
+      - TS_ACCEPT_ROUTES # Set in Balena variables
+      - TS_HOSTNAME # Set in Balena variables
+    restart: unless-stopped
   intermediate-server:
-    build: .
+    build: ./node-server
     ports:
       - '80:80'
     environment:
