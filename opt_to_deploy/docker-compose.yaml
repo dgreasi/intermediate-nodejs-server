@@ -30,3 +30,11 @@ services:
       - NODE_ENV=staging
       - RUN_TESTS=false
       - LOG_LEVEL=debug
+  iperf3:
+    image: taoyou/iperf3-alpine
+    container_name: iperf3-server
+    command: ['-s', '-p', '5201', '--bind', '0.0.0.0']
+    network_mode: 'host'
+    depends_on:
+      - tailscale
+    restart: unless-stopped

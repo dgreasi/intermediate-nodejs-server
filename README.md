@@ -87,3 +87,54 @@ After deployment, your intermediate server will be accessible via:
 ```shell
 $ npm run deploy
 ```
+
+### Test tailscale speed
+
+#### Server upload speed
+
+Command
+
+```bash
+# Upload 5Mb from server to client
+-c ${server-ip-address} -i 5 -n 5000.00k -4 -R
+```
+
+Result (`3.58 Mbps, depends on server's upload speed`)
+
+```bash
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-1.00   sec  5.00 MBytes  41.9 Mbits/sec    0   1.12 MBytes
+[  5]   1.00-2.00   sec  0.00 Bytes  0.00 bits/sec    0   1.12 MBytes
+[  5]   2.00-3.00   sec  0.00 Bytes  0.00 bits/sec    0   1.12 MBytes
+[  5]   3.00-4.00   sec  0.00 Bytes  0.00 bits/sec    0   1.12 MBytes
+[  5]   4.00-5.00   sec  0.00 Bytes  0.00 bits/sec    0   1.12 MBytes
+[  5]   5.00-6.00   sec  0.00 Bytes  0.00 bits/sec    0   1.12 MBytes
+[  5]   6.00-7.00   sec  0.00 Bytes  0.00 bits/sec    0   1.12 MBytes
+[  5]   7.00-8.00   sec  0.00 Bytes  0.00 bits/sec    0   1.12 MBytes
+[  5]   8.00-9.00   sec  0.00 Bytes  0.00 bits/sec    0   1.12 MBytes
+[  5]   9.00-10.00  sec  0.00 Bytes  0.00 bits/sec    0   1.12 MBytes
+[  5]  10.00-11.00  sec  0.00 Bytes  0.00 bits/sec    0   1.12 MBytes
+[  5]  11.00-11.73  sec  0.00 Bytes  0.00 bits/sec    0   1.12 MBytes
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-11.73  sec  5.00 MBytes  3.58 Mbits/sec    0             sender
+```
+
+#### Client upload speed (server download speed)
+
+```bash
+# Upload 5Mb from client to server (server downloads the file)
+-c ${server-ip-address} -i 5 -n 5000.00k -4
+```
+
+Result (`14.7 Mbps, depends on client's upload speed`)
+
+```bash
+[ ID] Interval           Transfer     Bitrate
+[  5]   0.00-1.00   sec  1.21 MBytes  10.1 Mbits/sec
+[  5]   1.00-2.00   sec  2.29 MBytes  19.2 Mbits/sec
+[  5]   2.00-2.04   sec  77.9 KBytes  17.4 Mbits/sec
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate
+[  5]   0.00-2.04   sec  3.57 MBytes  14.7 Mbits/sec                  receiver
+```
