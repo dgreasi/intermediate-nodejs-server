@@ -60,15 +60,3 @@ services:
     restart: unless-stopped
     depends_on:
       - tailscale
-
-  matter-server:
-    image: ghcr.io/home-assistant-libs/python-matter-server:stable
-    network_mode: host
-    privileged: true
-    labels:
-      io.balena.features.dbus: '1'
-    volumes:
-      - matter-server-data:/data
-    restart: unless-stopped
-    depends_on:
-      - homeassistant
