@@ -3,7 +3,6 @@ version: '2.1'
 volumes:
   tailscale-state:
   home-assistant-config:
-  matter-server-data:
 
 services:
   tailscale:
