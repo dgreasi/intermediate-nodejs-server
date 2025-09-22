@@ -11,7 +11,7 @@
     "cp:static": "cp -R src/views ./dist/node-server/src/views",
     "clean:build": "rm -rf dist",
     "build": "npm run clean:build && tsc && npm run cp:static",
-    "copy-main": "cp ./opt_to_deploy/balena.yaml ./dist/balena.yaml && cp ./opt_to_deploy/docker-compose.yaml ./dist/docker-compose.yaml",
+    "copy-main": "cp ./opt_to_deploy/balena.yaml ./dist/balena.yaml && cp ./opt_to_deploy/repo.yaml ./dist/repo.yaml && cp ./opt_to_deploy/docker-compose.yaml ./dist/docker-compose.yaml",
     "copy-server": "cp ./opt_to_deploy/node-server/* ./dist/node-server && cp ./opt_to_deploy/repo.yaml ./dist/node-server/repo.yml",
     "copy-tailscale": "cp -r ./opt_to_deploy/tailscale ./dist/tailscale",
     "copy-deploy-config": "npm run copy-main && npm run copy-server",
