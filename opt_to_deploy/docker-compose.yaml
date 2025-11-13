@@ -2,7 +2,6 @@ version: '2.1'
 
 volumes:
   tailscale-state:
-  home-assistant-config:
 
 services:
   tailscale:
@@ -41,21 +40,3 @@ services:
     depends_on:
       - tailscale
     restart: unless-stopped
-
-  # homeassistant:
-  #   container_name: homeassistant
-  #   image: ghcr.io/home-assistant/home-assistant:stable
-  #   network_mode: host
-  #   privileged: true
-  #   labels:
-  #     io.balena.features.dbus: '1'
-  #   volumes:
-  #     - home-assistant-config:/config
-  #   environment:
-  #     - TZ=Europe/Athens # Set your timezone here instead of mounting /etc/localtime
-  #   devices:
-  #     - /dev/ttyUSB0:/dev/ttyUSB0 # Zigbee stick
-  #     - /dev/ttyUSB1:/dev/ttyUSB1 # Thread/Matter stick
-  #   restart: unless-stopped
-  #   depends_on:
-  #     - tailscale
